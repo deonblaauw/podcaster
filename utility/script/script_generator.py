@@ -2,7 +2,7 @@ import openai
 import json
 import os
 
-def generate_conversation(topic, provider, model, prompt):
+def generate_conversation(topic, provider, model, prompt, temp):
     print("Generating conversation on topic:", topic)
 
     if provider == "openai":
@@ -16,7 +16,8 @@ def generate_conversation(topic, provider, model, prompt):
         messages=[
             {"role": "system", "content": prompt},
             {"role": "user", "content": topic}
-        ]
+        ],
+        temperature=temp
     )
 
     content = response.choices[0].message.content

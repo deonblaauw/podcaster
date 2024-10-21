@@ -48,8 +48,6 @@ def add_music_with_tts(intro_music_path, main_tts_path, outro_music_path, output
 
 
 
-
-
 async def generate_audio_edge(text, outputFilename, voice):
     
     available_voices = [
