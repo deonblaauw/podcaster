@@ -2,6 +2,64 @@
 import requests
 import os
 import random
+from moviepy.editor import AudioFileClip, concatenate_audioclips, CompositeAudioClip
+
+def add_music_with_tts(intro_music_path, main_tts_path, outro_music_path, output_path, fade_duration=2.0, music_intro_duration=10.0, music_outro_duration=10.0):
+    """Add background music with TTS audio, ensuring smooth transitions.
+    
+    Args:
+        intro_music_path (str): Path to the intro music MP3 file.
+        main_tts_path (str): Path to the main TTS audio MP3 file.
+        outro_music_path (str): Path to the outro music MP3 file.
+        output_path (str): Path to save the final output audio.
+        fade_duration (float): Duration for fade in/out effects in seconds.
+        music_intro_duration (float): Duration of the music-only intro section before TTS fades in.
+        music_outro_duration (float): Duration of the music-only outro section after TTS fades out.
+    """
+
+    # Load intro music, make it fade out at the end
+    intro_music = AudioFileClip(intro_music_path).volumex(0.1)
+    intro_music = intro_music.subclip(0, music_intro_duration).audio_fadeout(fade_duration)
+
+    # Load TTS audio at full volume
+    main_tts_audio = AudioFileClip(main_tts_path).volumex(1.0)
+
+    # Load outro music and make it fade in at the beginning
+    outro_music = AudioFileClip(outro_music_path).volumex(0.1)
+    outro_music = outro_music.subclip(0, music_outro_duration).audio_fadein(fade_duration)
+
+    # Create the intro section (music fading out and TTS audio fading in)
+    intro_with_tts = CompositeAudioClip([
+        intro_music,
+        main_tts_audio.set_start(music_intro_duration - fade_duration)  # Fade TTS in just before the intro music fades out
+    ])
+
+    # Outro: TTS audio fades out while outro music fades in
+    tts_faded_out = main_tts_audio.audio_fadeout(fade_duration)
+    outro_with_tts = CompositeAudioClip([
+        tts_faded_out,
+        outro_music.set_start(main_tts_audio.duration - fade_duration)  # Fade in outro music before TTS ends
+    ])
+
+    # Concatenate intro_with_tts (intro + full TTS) and outro_with_tts
+    final_audio = concatenate_audioclips([intro_with_tts, outro_with_tts])
+
+    # Write the result to a file
+    final_audio.write_audiofile(output_path)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # async def generate_audio_edge(text, outputFilename, voice):
     

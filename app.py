@@ -1,7 +1,7 @@
 import argparse
 from utility.script.script_generator import generate_conversation
 from utility.script.prompts import create_host_prompt, create_guest_prompt
-from utility.audio.audio_generator import generate_combined_audio
+from utility.audio.audio_generator import generate_combined_audio, add_music_with_tts
 import os
 import asyncio
 
@@ -27,27 +27,8 @@ if __name__ == "__main__":
     host_conversation = []
     guest_conversation = []
 
-    # # Generate the host's opening statement
-    # host_response = generate_conversation(SAMPLE_TOPIC, PROVIDER, MODEL, create_host_prompt.format(topic=SAMPLE_TOPIC))
-    # host_conversation.append(host_response)
-    # print("Host:", host_response)
-
-    # # Generate the guest's response
-    # guest_response = generate_conversation(SAMPLE_TOPIC, PROVIDER, MODEL, create_guest_prompt.format(topic=SAMPLE_TOPIC))
-    # guest_conversation.append(guest_response)
-    # print("Guest:", guest_response)
-
     # Continue the conversation (simulate 20-30 minutes worth of conversation)
     conversation_turns = 20  # Adjust this number based on how long each response is
-
-    # # Start with the initial responses
-    # print("Initial conversation:")
-    # print("Host:", host_response)
-    # print("Guest:", guest_response)
-
-    # # Append initial responses to conversation histories
-    # host_conversation.append(host_response)
-    # guest_conversation.append(guest_response)
 
     guest_response = ""
     host_response = ""
@@ -86,3 +67,12 @@ if __name__ == "__main__":
 
     # Run the audio generation
     asyncio.run(generate_combined_audio(host_conversation, guest_conversation, SAMPLE_FILE_NAME, HOST_VOICE, GUEST_VOICE))
+
+
+    # Add music
+    intro_music_path = "utility/music/in-slow-motion-inspiring-ambient-lounge-219592.mp3"
+    main_tts_path = SAMPLE_FILE_NAME
+    outro_music_path = "utility/music/in-slow-motion-inspiring-ambient-lounge-219592.mp3"
+    output_path = "final_output.mp3"
+   
+    add_music_with_tts(intro_music_path, main_tts_path, outro_music_path, output_path, fade_duration=5.0, music_intro_duration=20.0 , music_outro_duration=30.0)
