@@ -1,4 +1,16 @@
 
+___
+# Podcaster
+
+## Contents
+- [Pocast Generator](#podcast-generator)
+- [Pexel Video Generator](#pexel-video-generator)
+
+
+Developed and tested on macOS Sequoia 15.0.1
+
+![macos](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)
+
 ---
 
 # Podcast Generator
@@ -31,6 +43,36 @@ This script generates a podcast episode featuring a conversation between two AI 
    ```bash
    pip install -r requirements.txt
    ```
+
+You need to set environment variables for the `OPENAI_KEY` and `PEXELS_KEY` API keys:
+
+### Setting Environment Variables
+
+To use the OpenAI and Pexels APIs, you'll need to set the following environment variables in your system:
+
+1. **For macOS and Linux**:
+   Open your terminal and add the following lines to your shell configuration file (e.g., `.bashrc`, `.bash_profile`, or `.zshrc`):
+
+   ```bash
+   export OPENAI_KEY='your_openai_api_key'
+   export PEXELS_KEY='your_pexels_api_key'
+   ```
+
+   After adding these lines, run the following command to apply the changes:
+
+   ```bash
+   source ~/.bashrc   # or source ~/.zshrc, depending on your shell
+   ```
+
+2. **For Windows**:
+   Open Command Prompt or PowerShell and set the environment variables using the following commands:
+
+   ```powershell
+   setx OPENAI_KEY "your_openai_api_key"
+   setx PEXELS_KEY "your_pexels_api_key"
+   ```
+
+   After running these commands, restart your Command Prompt or PowerShell session.
 
 ## Usage
 To run the script, use the following command in your terminal:
@@ -83,13 +125,13 @@ This project is licensed under the MIT License. See the LICENSE file for more in
 This script is designed to generate a video based on a podcast episode, integrating timed captions and background footage sourced from Pexels. The project is experimental and still a work in progress, with ongoing improvements to enhance functionality and stability.
 
 ## Table of Contents
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Arguments](#arguments)
-- [Architecture](#architecture)
-- [Functions Overview](#functions-overview)
-- [License](#license)
+- [Features](#features-1)
+- [Installation](#installation-1)
+- [Usage](#usage-1)
+- [Arguments](#arguments-1)
+- [Architecture](#architecture-1)
+- [Functions Overview](#functions-overview-1)
+- [License](#license-1)
 
 ## Features
 - Generates a video by analyzing audio content and extracting appropriate search keywords for Pexel videos.
@@ -107,6 +149,37 @@ This script is designed to generate a video based on a podcast episode, integrat
    ```bash
    pip install -r requirements.txt
    ```
+3. Install ffmpeg
+
+You need to set environment variables for the `OPENAI_KEY` and `PEXELS_KEY` API keys:
+
+### Setting Environment Variables
+
+To use the OpenAI and Pexels APIs, you'll need to set the following environment variables in your system:
+
+1. **For macOS and Linux**:
+   Open your terminal and add the following lines to your shell configuration file (e.g., `.bashrc`, `.bash_profile`, or `.zshrc`):
+
+   ```bash
+   export OPENAI_KEY='your_openai_api_key'
+   export PEXELS_KEY='your_pexels_api_key'
+   ```
+
+   After adding these lines, run the following command to apply the changes:
+
+   ```bash
+   source ~/.bashrc   # or source ~/.zshrc, depending on your shell
+   ```
+
+2. **For Windows**:
+   Open Command Prompt or PowerShell and set the environment variables using the following commands:
+
+   ```powershell
+   setx OPENAI_KEY "your_openai_api_key"
+   setx PEXELS_KEY "your_pexels_api_key"
+   ```
+
+   After running these commands, restart your Command Prompt or PowerShell session.
 
 ## Usage
 To run the script, use the following command in your terminal:
