@@ -11,6 +11,10 @@ Developed and tested on macOS Sequoia 15.0.1
 
 ![macos](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)
 
+Listen to our podcast on Spotify!
+
+[![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=for-the-badge&logo=spotify&logoColor=white)](https://podcasters.spotify.com/pod/deon-blaauw6/episodes/)
+
 ---
 
 # Podcast Generator
