@@ -102,6 +102,10 @@ async def generate_audio_edge(text, outputFilename, voice):
 
     await communicate.save(outputFilename)
 
+import os
+import requests
+import random
+
 # Async function to generate audio using OpenAI TTS
 async def generate_audio_openai(text, outputFilename, voice):
     api_key = os.getenv("OPENAI_API_KEY")  # Ensure your API key is stored in an environment variable
@@ -120,25 +124,42 @@ async def generate_audio_openai(text, outputFilename, voice):
         "Content-Type": "application/json"
     }
 
-    payload = {
-        "model": "tts-1",
-        "input": text,
-        "voice": voice  # Use the validated or random voice
-    }
+    # Function to split text into smaller chunks
+    def split_text_into_chunks(text, max_length=4096):
+        """Split the input text into smaller chunks with a maximum length."""
+        return [text[i:i + max_length] for i in range(0, len(text), max_length)]
 
-    # Make a POST request to OpenAI API
-    response = requests.post(url, headers=headers, json=payload)
+    # Split the text into chunks of 4096 characters or less
+    chunks = split_text_into_chunks(text)
+    audio_data = bytearray()  # To store audio content
 
-    # Check if the request was successful
-    if response.status_code == 200:
-        # Save the audio to the output file
-        with open(outputFilename, "wb") as audio_file:
-            audio_file.write(response.content)
-        print(f"Audio generated and saved as '{outputFilename}'")
-    else:
-        # Handle API errors
-        print(f"Failed to generate audio. Status code: {response.status_code}")
-        print(f"Response: {response.text}")
+    # Process each chunk separately
+    for index, chunk in enumerate(chunks):
+        payload = {
+            "model": "tts-1",
+            "input": chunk,
+            "voice": voice  # Use the validated or random voice
+        }
+
+        # Make a POST request to OpenAI API
+        response = requests.post(url, headers=headers, json=payload)
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Append the audio content to the byte array
+            audio_data.extend(response.content)
+            print(f"Chunk {index + 1}/{len(chunks)} processed successfully.")
+        else:
+            # Handle API errors
+            print(f"Failed to generate audio for chunk {index + 1}. Status code: {response.status_code}")
+            print(f"Response: {response.text}")
+            return  # Exit the function on failure
+
+    # Save the concatenated audio data to the output file
+    with open(outputFilename, "wb") as audio_file:
+        audio_file.write(audio_data)
+    print(f"Audio generated and saved as '{outputFilename}'")
+
 
 
 
