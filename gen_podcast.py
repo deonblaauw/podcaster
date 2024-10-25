@@ -54,14 +54,14 @@ if __name__ == "__main__":
         print("Conversation turn:", i + 1)  # To display the current turn number
 
         # Host responds based on the guest's last response
-        temperature = random.uniform(0.6, 0.7)
+        temperature = random.uniform(0.5, 0.9)
         host_response = generate_conversation(guest_response, PROVIDER, MODEL, create_host_prompt.format(topic=SAMPLE_TOPIC), temperature)
         host_conversation.append(host_response)
         total_response += "Host: " + host_response + "\n"
         print("\nHost Temperature: {" + str(temperature) + "} Response: " + host_response)
 
         # Guest responds based on the host's last response
-        temperature = random.uniform(0.6, 0.7)
+        temperature = random.uniform(0.5, 0.9)
         guest_response = generate_conversation(host_response, PROVIDER, MODEL, create_guest_prompt.format(topic=SAMPLE_TOPIC), temperature)
         guest_conversation.append(guest_response)
         total_response += "Guest: " + guest_response + "\n"

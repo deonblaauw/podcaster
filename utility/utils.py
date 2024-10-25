@@ -42,7 +42,7 @@ def save_episode_summary_to_file(sample_topic, script, hashtags, output_director
     os.makedirs(output_directory, exist_ok=True)
 
     # Limit the filename to 40 characters and replace spaces with underscores
-    filename_base = sample_topic.replace(" ", "_")[:40]
+    filename_base = sample_topic.replace(" ", "_")[:100]
 
     # Set the initial full path for the file
     full_path = os.path.join(output_directory, filename_base + ".txt")
