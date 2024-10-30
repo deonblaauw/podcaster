@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
     if TTS_ENGINE == "openai":
         HOST_VOICE = "alloy"
-        GUEST_VOICE = "shimmer" #"onyx"
+        GUEST_VOICE = "onyx" #"onyx"
     elif TTS_ENGINE == "edge":
         HOST_VOICE = "en-AU-NatashaNeural"
         GUEST_VOICE = "en-AU-WilliamNeural"
